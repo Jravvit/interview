@@ -17,3 +17,7 @@
 osi 7계층에서 L2 L3 L4 L7 에서 switch를 이용해서 ip를 차단할 수 있으며 L4에서는 iptables를 사용할 수 있고 L7에서는 웹서버 nginx나 apache를 이용할수 있습니다.
 
 또한 HAProxy와 같은 프록시를 이용해서 ip를 차단할 수 있습니다.
+
+참고자료 
+
+[HAProxy란](http://d2.naver.com/helloworld/284659m)
