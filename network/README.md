@@ -3,7 +3,7 @@
 
 ### 1. 서비스 운영중에 특정 ip 을 block 하면 어떻게 해야 할까요? (가능한 방법을 모두 말해주세요.)
 
-### 답변
+#### 답변
 
 제 경험에 기준해서 말씀드리면 dos성 공격을 받고있었고 netstat로 확인해보니 syn_recv 상태를 가지는 중복 세션들이 많이 생성되는 상황이여서 syn_flooding이 의심스러웠는데, 그때는 방화벽을 따로 갖추고 있던 상황이 아니라서 iptable을 이용해서 중복 세션들을 drop 시켰습니다. 
 방화벽서버에서 차단 하는 방법도 있습니다.
@@ -18,10 +18,17 @@ osi 7계층에서 L2 L3 L4 L7 에서 switch를 이용해서 ip를 차단할 수 
 
 
     OSI 7 
-    7 : web server(nginx, apache), was(tomcat), proxy(HAProxy)
-    4 : iptable, windows firewall, switch
-    3 : switch
-    2 : switch
+    Application 7 : web server(nginx, apache), was(tomcat), proxy(HAProxy)
+    Transport   4 : iptable, windows firewall, switch
+    Network     3 : switch
+    Data Link   2 : switch
+
+**더 물어볼 수 있는 내용**
+각 시나리오별 잔당과 활용방법에 대해서 말하시오.
+
+기타내용
+- 일반적으로는 개발팀에서 네트워크 팀에게 초기 서버 요청을 하면 L2,L3 사용 목적에 맞게 적절한 대역의 서버를 할당하고 추후 서비스 acl 요청만 따로하면 L3로 처리 
+-  여러대 서버를 운영하기 위해 L3를 주로 쓰는데, 서버가 너무 많아지면 비싸고 포트가 제한된 L3 밑에다가 L2를 추가하면서 여러 스위치가 혼재된 구성 그리고 L3 스위치 성능 및 기능이 발전함에 따라서 라우터 대용으로 사용(네트워크 대역관리를 주로 하는 ISP 업체에서는 사용) 
 
 참고자료 
 
